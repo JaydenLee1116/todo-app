@@ -11,7 +11,7 @@ export default function Container() {
     <div className={styles.container}>
       <Header />
       <Main titles={titles} setTitles={setTitles} />
-      <Footer />
+      <Footer setTitles={setTitles} />
     </div>
   );
 }

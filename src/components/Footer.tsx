@@ -1,5 +1,13 @@
 import styles from '../styles/Footer.module.css';
+import InputItem from './InputItem';
 
-export default function Header() {
-  return <div className={styles.footer}></div>;
+interface FooterProps {
+  setTitles: React.Dispatch<React.SetStateAction<string[]>>;
+}
+export default function Footer({ setTitles }: FooterProps) {
+  return (
+    <div className={styles.footer}>
+      <InputItem setTitles={setTitles} />
+    </div>
+  );
 }

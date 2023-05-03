@@ -14,6 +14,6 @@ App
     - button: delete
 
 - Footer
-  - ItemInput
+  - InputItem
     - input: text
     - button: add
