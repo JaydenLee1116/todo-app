@@ -5,6 +5,8 @@ import Main from './Main';
 import Footer from './Footer';
 import { Todo } from '../types/interfaces';
 import { v4 as uuidv4 } from 'uuid';
+
+const filters = ['all', 'active', 'completed'];
 export default function Container() {
   useEffect(() => localStorage.setItem('todos', JSON.stringify([])), []);
   const initialTodos = [
@@ -19,10 +21,12 @@ export default function Container() {
       ? JSON.parse(localStorage.getItem('todos') as string)
       : initialTodos,
   );
+
+  const [filter, setFilter] = useState(filters[0]);
   return (
     <div className={styles.container}>
-      <Header />
-      <Main todos={todos} setTodos={setTodos} />
+      <Header filters={filters} filter={filter} onFilterChange={setFilter} />
+      <Main todos={todos} setTodos={setTodos} filter={filter} />
       <Footer setTodos={setTodos} />
     </div>
   );

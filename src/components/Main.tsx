@@ -4,9 +4,10 @@ import { Todo } from '../types/interfaces';
 interface MainProps {
   todos: Todo[];
   setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+  filter: string;
 }
 
-export default function Main({ todos, setTodos }: MainProps) {
+export default function Main({ todos, setTodos, filter }: MainProps) {
   const handleComplete = (todo: Todo) => {
     setTodos((prevTodos) =>
       prevTodos.map((prevTodo) => {
@@ -25,14 +26,40 @@ export default function Main({ todos, setTodos }: MainProps) {
   return (
     <div className={styles.main}>
       <ul>
-        {todos.map((todo) => (
-          <Item
-            key={todo.id}
-            todo={todo}
-            onUpdate={handleComplete}
-            onDelete={handleDelete}
-          />
-        ))}
+        {todos.map((todo) => {
+          if (filter === 'all') {
+            return (
+              <Item
+                key={todo.id}
+                todo={todo}
+                onUpdate={handleComplete}
+                onDelete={handleDelete}
+              />
+            );
+          } else if (filter === 'active') {
+            return (
+              !todo.isComplete && (
+                <Item
+                  key={todo.id}
+                  todo={todo}
+                  onUpdate={handleComplete}
+                  onDelete={handleDelete}
+                />
+              )
+            );
+          } else if (filter === 'completed') {
+            return (
+              todo.isComplete && (
+                <Item
+                  key={todo.id}
+                  todo={todo}
+                  onUpdate={handleComplete}
+                  onDelete={handleDelete}
+                />
+              )
+            );
+          }
+        })}
       </ul>
     </div>
   );
