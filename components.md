@@ -9,7 +9,7 @@ App
 
 - Main
   - Item
-    - button: checkbox
+    - input: checkbox
     - span: title
     - button: delete
 
