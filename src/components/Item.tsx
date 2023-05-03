@@ -3,10 +3,12 @@ import { MdDeleteOutline } from 'react-icons/md';
 import { useState } from 'react';
 
 interface ItemProps {
+  id: number;
   title: string;
+  setTitles: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-export default function Item({ title }: ItemProps) {
+export default function Item({ id, title, setTitles }: ItemProps) {
   const [isComplete, setIsComplete] = useState(false);
 
   const handleComplete = () => {
@@ -14,7 +16,7 @@ export default function Item({ title }: ItemProps) {
   };
 
   const handleDelete = () => {
-    console.log('delete');
+    setTitles((prev) => prev.filter((_, index) => index !== id));
   };
 
   return (
