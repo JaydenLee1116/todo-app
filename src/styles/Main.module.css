@@ -1,8 +1,13 @@
 .main {
   width: 100%;
   height: 70%;
+  position: relative;
+  background-color: yellowgreen;
+}
+
+.main > ul {
+  align-items: center;
+  background-color: yellow;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  background-color: yellowgreen;
 }

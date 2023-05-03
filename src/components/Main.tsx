@@ -9,9 +9,11 @@ interface MainProps {
 export default function Main({ titles, setTitles }: MainProps) {
   return (
     <div className={styles.main}>
-      {titles.map((title, index) => (
-        <Item key={index} id={index} title={title} setTitles={setTitles} />
-      ))}
+      <ul>
+        {titles.map((title, index) => (
+          <Item key={index} id={index} title={title} setTitles={setTitles} />
+        ))}
+      </ul>
     </div>
   );
 }

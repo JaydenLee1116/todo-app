@@ -20,12 +20,17 @@ export default function Item({ id, title, setTitles }: ItemProps) {
   };
 
   return (
-    <div className={styles.item}>
-      <input type="checkbox" checked={isComplete} onChange={handleComplete} />
-      <label htmlFor="">{title}</label>
+    <li className={styles.item}>
+      <input
+        id={`check-${id}`}
+        type="checkbox"
+        checked={isComplete}
+        onChange={handleComplete}
+      />
+      <label htmlFor={`check-${id}`}>{title}</label>
       <button onClick={handleDelete}>
         <MdDeleteOutline />
       </button>
-    </div>
+    </li>
   );
 }
