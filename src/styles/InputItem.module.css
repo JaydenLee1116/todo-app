@@ -4,4 +4,14 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding: 1rem;
+}
+
+.input-item > input {
+  flex-grow: 1;
+  line-height: 2rem;
+}
+
+.input-item > button {
+  line-height: 2rem;
 }

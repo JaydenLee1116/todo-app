@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import styles from '../styles/InputItem.module.css';
 
 interface InputItemProps {
@@ -13,15 +13,30 @@ export default function InputItem({ setTitles }: InputItemProps) {
     setTitles((prev) => [...prev, inputText]);
     setInputText('');
   };
+  const inputRef = useRef<HTMLInputElement>(null);
   return (
-    <div className={styles.inputItem}>
+    <div className={styles['input-item']}>
       <input
         type="text"
         placeholder="할 일을 입력해주세요."
         value={inputText}
         onChange={handleInput}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            handleAdd();
+            (inputRef.current as HTMLInputElement).focus();
+          }
+        }}
+        ref={inputRef}
       />
-      <button onClick={handleAdd}>Add</button>
+      <button
+        onClick={() => {
+          handleAdd();
+          (inputRef.current as HTMLInputElement).focus();
+        }}
+      >
+        Add
+      </button>
     </div>
   );
 }
