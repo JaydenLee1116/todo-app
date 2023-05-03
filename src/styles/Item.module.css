@@ -1,0 +1,27 @@
+.item {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.item > input {
+}
+
+.item > span {
+}
+
+.item > button {
+  margin-left: auto;
+  background-color: transparent;
+  border: 1px solid black;
+  border-radius: 50%;
+ }
+
+.item:hover,
+.item:focus,
+.item:active {
+  color: tomato;
+  border-color: yellowgreen;
+}
+
