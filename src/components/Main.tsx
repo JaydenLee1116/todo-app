@@ -7,11 +7,31 @@ interface MainProps {
 }
 
 export default function Main({ todos, setTodos }: MainProps) {
+  const handleComplete = (todo: Todo) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((prevTodo) => {
+        if (prevTodo.id === todo.id) {
+          return { ...prevTodo, isComplete: !prevTodo.isComplete };
+        }
+        return prevTodo;
+      }),
+    );
+  };
+  const handleDelete = (todo: Todo) => {
+    setTodos((prevTodos) =>
+      prevTodos.filter((prevTodo) => prevTodo.id !== todo.id),
+    );
+  };
   return (
     <div className={styles.main}>
       <ul>
         {todos.map((todo) => (
-          <Item key={todo.id} todo={todo} setTodos={setTodos} />
+          <Item
+            key={todo.id}
+            todo={todo}
+            onUpdate={handleComplete}
+            onDelete={handleDelete}
+          />
         ))}
       </ul>
     </div>
