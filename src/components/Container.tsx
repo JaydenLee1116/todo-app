@@ -1,15 +1,15 @@
 import styles from '../styles/Container.module.css';
+import { useState } from 'react';
 import Header from './Header';
-import Item from './Item';
+import Main from './Main';
 
 export default function Container() {
-  const tempTitles = ['6시 기상', '헬스', '강의듣기', '일찍 자기'];
+  const initialTitles = ['6시 기상', '헬스', '강의듣기', '일찍 자기'];
+  const [titles, setTitles] = useState<string[]>(initialTitles);
   return (
     <div className={styles.container}>
       <Header />
-      {tempTitles.map((title, index) => (
-        <Item title={title} key={index} />
-      ))}
+      <Main titles={titles} setTitles={setTitles} />
     </div>
   );
 }

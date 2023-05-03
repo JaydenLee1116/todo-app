@@ -20,7 +20,7 @@ export default function Item({ title }: ItemProps) {
   return (
     <div className={styles.item}>
       <input type="checkbox" checked={isComplete} onChange={handleComplete} />
-      <span>{title}</span>
+      <label htmlFor="">{title}</label>
       <button onClick={handleDelete}>
         <MdDeleteOutline />
       </button>
