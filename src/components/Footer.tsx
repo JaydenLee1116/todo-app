@@ -1,13 +1,14 @@
 import styles from '../styles/Footer.module.css';
 import InputItem from './InputItem';
+import { Todo } from '../types/interfaces';
 
 interface FooterProps {
-  setTitles: React.Dispatch<React.SetStateAction<string[]>>;
+  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
 }
-export default function Footer({ setTitles }: FooterProps) {
+export default function Footer({ setTodos }: FooterProps) {
   return (
     <div className={styles.footer}>
-      <InputItem setTitles={setTitles} />
+      <InputItem setTodos={setTodos} />
     </div>
   );
 }

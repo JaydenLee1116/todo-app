@@ -1,22 +1,26 @@
 import styles from '../styles/Item.module.css';
 import { MdDeleteOutline } from 'react-icons/md';
-import { useState } from 'react';
+import { Todo } from '../types/interfaces';
 
 interface ItemProps {
   id: number;
-  title: string;
-  setTitles: React.Dispatch<React.SetStateAction<string[]>>;
+  todo: Todo;
+  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
 }
 
-export default function Item({ id, title, setTitles }: ItemProps) {
-  const [isComplete, setIsComplete] = useState(false);
-
+export default function Item({ id, todo, setTodos }: ItemProps) {
   const handleComplete = () => {
-    setIsComplete(!isComplete);
+    setTodos((prev) =>
+      prev.map((todo, index) =>
+        index === id
+          ? { title: todo.title, isComplete: !todo.isComplete }
+          : todo,
+      ),
+    );
   };
 
   const handleDelete = () => {
-    setTitles((prev) => prev.filter((_, index) => index !== id));
+    setTodos((prev) => prev.filter((_, index) => index !== id));
   };
 
   return (
@@ -24,10 +28,10 @@ export default function Item({ id, title, setTitles }: ItemProps) {
       <input
         id={`check-${id}`}
         type="checkbox"
-        checked={isComplete}
+        checked={todo.isComplete}
         onChange={handleComplete}
       />
-      <label htmlFor={`check-${id}`}>{title}</label>
+      <label htmlFor={`check-${id}`}>{todo.title}</label>
       <button onClick={handleDelete}>
         <MdDeleteOutline />
       </button>

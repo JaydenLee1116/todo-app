@@ -1,16 +1,17 @@
 import { useRef, useState } from 'react';
 import styles from '../styles/InputItem.module.css';
+import { Todo } from '../types/interfaces';
 
 interface InputItemProps {
-  setTitles: React.Dispatch<React.SetStateAction<string[]>>;
+  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
 }
-export default function InputItem({ setTitles }: InputItemProps) {
+export default function InputItem({ setTodos }: InputItemProps) {
   const [inputText, setInputText] = useState('');
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(e.target.value);
   };
   const handleAdd = () => {
-    setTitles((prev) => [...prev, inputText]);
+    setTodos((prev) => [...prev, { title: inputText, isComplete: false }]);
     setInputText('');
   };
   const inputRef = useRef<HTMLInputElement>(null);

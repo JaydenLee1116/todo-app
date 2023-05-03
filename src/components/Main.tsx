@@ -1,17 +1,17 @@
 import styles from '../styles/Main.module.css';
 import Item from './Item';
-
+import { Todo } from '../types/interfaces';
 interface MainProps {
-  titles: string[];
-  setTitles: React.Dispatch<React.SetStateAction<string[]>>;
+  todos: Todo[];
+  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
 }
 
-export default function Main({ titles, setTitles }: MainProps) {
+export default function Main({ todos, setTodos }: MainProps) {
   return (
     <div className={styles.main}>
       <ul>
-        {titles.map((title, index) => (
-          <Item key={index} id={index} title={title} setTitles={setTitles} />
+        {todos.map((todo, index) => (
+          <Item key={index} id={index} todo={todo} setTodos={setTodos} />
         ))}
       </ul>
     </div>
