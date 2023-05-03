@@ -3,35 +3,45 @@ import { MdDeleteOutline } from 'react-icons/md';
 import { Todo } from '../types/interfaces';
 
 interface ItemProps {
-  id: number;
   todo: Todo;
   setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
 }
 
-export default function Item({ id, todo, setTodos }: ItemProps) {
+export default function Item({ todo, setTodos }: ItemProps) {
   const handleComplete = () => {
-    setTodos((prev) =>
-      prev.map((todo, index) =>
-        index === id
-          ? { title: todo.title, isComplete: !todo.isComplete }
-          : todo,
-      ),
+    setTodos((prevTodos) =>
+      prevTodos.map((prevTodo) => {
+        if (prevTodo.id === todo.id) {
+          return { ...prevTodo, isComplete: !prevTodo.isComplete };
+        }
+        return prevTodo;
+      }),
     );
   };
+  // setTodos((prev) =>
+  //   prev.map((todo, index) =>
+  //     index === id
+  //       ? { title: todo.title, isComplete: !todo.isComplete }
+  //       : todo,
+  //   ),
+  // );
+  // };
 
   const handleDelete = () => {
-    setTodos((prev) => prev.filter((_, index) => index !== id));
+    setTodos((prevTodos) =>
+      prevTodos.filter((prevTodo) => prevTodo.id !== todo.id),
+    );
   };
 
   return (
     <li className={styles.item}>
       <input
-        id={`check-${id}`}
+        id={`check-${todo.id}`}
         type="checkbox"
         checked={todo.isComplete}
         onChange={handleComplete}
       />
-      <label htmlFor={`check-${id}`}>{todo.title}</label>
+      <label htmlFor={`check-${todo.id}`}>{todo.title}</label>
       <button onClick={handleDelete}>
         <MdDeleteOutline />
       </button>

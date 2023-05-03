@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import styles from '../styles/InputItem.module.css';
 import { Todo } from '../types/interfaces';
+import { v4 as uuidv4 } from 'uuid';
 
 interface InputItemProps {
   setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
@@ -8,21 +9,34 @@ interface InputItemProps {
 export default function InputItem({ setTodos }: InputItemProps) {
   const [inputText, setInputText] = useState('');
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputText(e.target.value);
+    const value = e.target.value;
+    setInputText(value);
   };
   const handleAdd = () => {
-    setTodos((prev) => [...prev, { title: inputText, isComplete: false }]);
+    if (!inputText.trim()) return;
+    setTodos((prev) => [
+      ...prev,
+      { id: uuidv4(), title: inputText, isComplete: false },
+    ]);
     setInputText('');
   };
   const inputRef = useRef<HTMLInputElement>(null);
   return (
-    <div className={styles['input-item']}>
+    <form
+      className={styles['input-item']}
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleAdd();
+        (inputRef.current as HTMLInputElement).focus();
+      }}
+    >
       <input
         type="text"
-        placeholder="할 일을 입력해주세요."
+        placeholder="Add Todo"
         value={inputText}
         onChange={handleInput}
         onKeyDown={(e) => {
+          if (e.nativeEvent.isComposing) return;
           if (e.key === 'Enter') {
             handleAdd();
             (inputRef.current as HTMLInputElement).focus();
@@ -30,14 +44,7 @@ export default function InputItem({ setTodos }: InputItemProps) {
         }}
         ref={inputRef}
       />
-      <button
-        onClick={() => {
-          handleAdd();
-          (inputRef.current as HTMLInputElement).focus();
-        }}
-      >
-        Add
-      </button>
-    </div>
+      <button>Add</button>
+    </form>
   );
 }
