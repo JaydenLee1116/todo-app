@@ -14,13 +14,17 @@ export default function InputItem({ setTodos }: InputItemProps) {
   };
   const handleAdd = () => {
     if (!inputText.trim()) return;
-    setTodos((prev) => [
-      ...prev,
-      { id: uuidv4(), title: inputText, isComplete: false },
-    ]);
+    setTodos((prev) => {
+      const newTodos = [
+        ...prev,
+        { id: uuidv4(), title: inputText, isComplete: false },
+      ];
+      return newTodos;
+    });
     setInputText('');
   };
   const inputRef = useRef<HTMLInputElement>(null);
+
   return (
     <form
       className={styles['input-item']}

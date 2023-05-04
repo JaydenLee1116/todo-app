@@ -19,12 +19,12 @@ export default function Item({ todo, onUpdate, onDelete }: ItemProps) {
   return (
     <li className={styles.item}>
       <input
-        id={`check-${todo.id}`}
+        id={todo.id}
         type="checkbox"
         checked={todo.isComplete}
         onChange={handleComplete}
       />
-      <label htmlFor={`check-${todo.id}`}>{todo.title}</label>
+      <label htmlFor={todo.id}>{todo.title}</label>
       <button onClick={handleDelete}>
         <MdDeleteOutline />
       </button>

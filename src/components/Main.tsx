@@ -1,6 +1,7 @@
 import styles from '../styles/Main.module.css';
 import Item from './Item';
 import { Todo } from '../types/interfaces';
+import { useEffect } from 'react';
 interface MainProps {
   todos: Todo[];
   setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
@@ -19,10 +20,14 @@ export default function Main({ todos, setTodos, filter }: MainProps) {
     );
   };
   const handleDelete = (todo: Todo) => {
-    setTodos((prevTodos) =>
-      prevTodos.filter((prevTodo) => prevTodo.id !== todo.id),
-    );
+    setTodos((prevTodos) => {
+      const newTodos = prevTodos.filter((prevTodo) => prevTodo.id !== todo.id);
+      return newTodos;
+    });
   };
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
   return (
     <div className={styles.main}>
       <ul>
